@@ -32,7 +32,14 @@ export const TamboMcpProvider: FC<{
           typeof mcpServer === "string"
             ? { url: mcpServer, transport: MCPTransport.SSE }
             : mcpServer;
-        const { url, transport = MCPTransport.SSE , headers} = server;
+        const { url, transport = MCPTransport.SSE, headers } = server;
+        console.warn("TamboMcpProvider - Server config:", server);
+        console.warn("TamboMcpProvider - Extracted headers:", headers);
+        console.warn("TamboMcpProvider - About to create MCPClient with:", {
+          url,
+          transport,
+          headers,
+        });
         const mcpClient = await MCPClient.create(url, transport, headers);
         const tools = await mcpClient.listTools();
         tools.forEach((tool) => {

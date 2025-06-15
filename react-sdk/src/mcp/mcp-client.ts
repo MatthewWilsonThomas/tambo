@@ -32,11 +32,20 @@ export class MCPClient {
     transport: MCPTransport,
     headers?: Record<string, string>,
   ) {
+    console.warn("MCPClient constructor - headers received:", headers);
+    console.warn("MCPClient constructor - transport type:", transport);
+    console.warn("MCPClient constructor - endpoint:", endpoint);
+
     if (transport === MCPTransport.SSE) {
+      console.warn("Creating SSEClientTransport with headers:", headers);
       this.transport = new SSEClientTransport(new URL(endpoint), {
         requestInit: { headers },
       });
     } else {
+      console.warn(
+        "Creating StreamableHTTPClientTransport with headers:",
+        headers,
+      );
       this.transport = new StreamableHTTPClientTransport(new URL(endpoint), {
         requestInit: { headers },
       });
